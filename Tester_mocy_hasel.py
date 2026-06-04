@@ -13,6 +13,12 @@ while True:
  hasło_uzytkownika = str(input("Twoje hasło: "))
 
  punkty_mocy = 0
+ # klasyfikacja punków
+ # 1 - słabe
+ # 2 - słabe
+ # 3 - średnie
+ # 4 - mocne
+
  # 2 sprawdzenie długości hasla
  def sprdlugoscihasla():
     dlugosc_hasla = len(hasło_uzytkownika)
@@ -60,7 +66,37 @@ while True:
     punkty_mocy += 1
  else:
     continue
+
+ # Sprawdzenie ilości cyfr i znaków specjalnych
+ def ilosccyfr_i_znakow(hasło_uzytkownika):
+
+  ilość_cyfr = 0
+  ilość_znaków = 0
+  ilość_znakow_specjalnych = { "!" : 0, "@" : 0, "#" : 0, "$" : 0,"%" : 0, "^" : 0, "&" : 0, "*" : 0,"(" : 0, ")" : 0, "_" : 0, "~" : 0 }
+  ilosccyfr = { "1" : 0, "2" : 0, "3" : 0, "4" : 0,"5" : 0, "6" : 0, "7" : 0, "8" : 0,"9" : 0, "0" : 0 }
+
+  for znak in hasło_uzytkownika:
+       if znak in ilość_znakow_specjalnych:
+           ilość_znakow_specjalnych[znak] += 1
+       if znak in ilosccyfr:
+           ilosccyfr[znak] += 1
+
+  for k,v in ilość_znakow_specjalnych.items():
+     ilość_znaków += v
+
+  for k,v in ilosccyfr.items():
+      ilość_cyfr += v
+  if ilość_cyfr == 0 and ilość_znaków == 0:
+     print(f"Siła twojego hasła wynosi {punkty_mocy}/4 nie użyłeś żadnego znaku specjalnego bądź cyfry!")
+     return False
+  return True
+
+ if not ilosccyfr_i_znakow(hasło_uzytkownika):
+     continue
+
+ sprdlugoscihasla()
  break
+
 
 
 
