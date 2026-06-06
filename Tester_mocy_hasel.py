@@ -6,6 +6,7 @@
 # Krok 5: Ocena i wynik – Podliczamy punkty i wypisujemy na ekranie, czy hasło jest
 # "Słabe", "Średnie" czy "Silne".
 #
+from operator import truediv
 
 # pobieranie hasła od użytkownika
 print("Podaj proszę swoje hasło a ja określę czy jest wystarczająco silne")
@@ -19,6 +20,19 @@ while True:
  # 3 - średnie
  # 4 - mocne
 
+ def naliczanie_punktów_mocy(czy_długie_min_8znakow, czy_wielkie, czy_są_znaki_sppecjalne, czy_są_liczby):
+      punkty = 0
+      if czy_długie_min_8znakow:
+          punkty += 1
+      if czy_wielkie:
+          punkty += 1
+      if czy_są_znaki_sppecjalne:
+          punkty += 1
+      if czy_są_liczby:
+          punkty += 1
+      return punkty
+
+
  # 2 sprawdzenie długości hasla
  def sprdlugoscihasla():
     dlugosc_hasla = len(hasło_uzytkownika)
@@ -30,7 +44,9 @@ while True:
    continue
 
  #jeżeli warunek jest spełniony to dodaj moc 1 haśle
- punkty_mocy += 1
+ #punkty_mocy += 1
+ długie = True
+
 
 
  def sprznaki():
@@ -58,12 +74,16 @@ while True:
             ma_małą += 1
     if ma_dużą < 2:
         print("wprowadź minimalnie 2 duży litery w haśle!")
-        print("musisz wpisać poprawne hasło")
+        return False
+        #print("musisz wpisać poprawne hasło")
+    if ma_małą < 2:
+        print("użyj przynajmnie 2 małych literek")
+        return False
         sprdlugoscihasla()
         return False
     return True
  if wielosc_liter():
-    punkty_mocy += 1
+    znaki = True
  else:
     continue
 
@@ -86,15 +106,28 @@ while True:
 
   for k,v in ilosccyfr.items():
       ilość_cyfr += v
-  if ilość_cyfr == 0 and ilość_znaków == 0:
-     print(f"Siła twojego hasła wynosi {punkty_mocy}/4 nie użyłeś żadnego znaku specjalnego bądź cyfry!")
-     return False
-  return True
+  #if ilość_cyfr == 0 and ilość_znaków == 0:
+    # print(f"Siła twojego hasła wynosi {punkty_mocy}/4 nie użyłeś żadnego znaku specjalnego bądź cyfry!")
+  ma_cyfry = ilość_cyfr > 0
+  ma_znaki = ilość_znaków > 0
 
- if not ilosccyfr_i_znakow(hasło_uzytkownika):
-     continue
+  if ilość_cyfr == 0 and ilość_znaków == 0:
+      print("nie użyłeś żadnego znaku specjalnego bądź cyfry")
+      return False, False, False
+
+  return True, ma_znaki, ma_cyfry
+
+
+ if not ilosccyfr_i_znakow(hasło_uzytkownika)[0]:
+   continue
 
  sprdlugoscihasla()
+
+ # 5
+ ostateczne_punkty = naliczanie_punktów_mocy(długie, znaki, ilosccyfr_i_znakow(hasło_uzytkownika)[1],
+                                            ilosccyfr_i_znakow(hasło_uzytkownika)[2])
+ print(f"Twoje punkty: {ostateczne_punkty}/4")
+
  break
 
 
