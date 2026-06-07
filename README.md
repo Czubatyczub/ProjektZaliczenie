@@ -1,4 +1,5 @@
 # Projekt zaliczeniowy – Tester siły hasła
+Pliki z zajęć znajduję się w odzielnym repozytorium pod https://github.com/Czubatyczub/pythonorg
 
 ## Autor: 
 
